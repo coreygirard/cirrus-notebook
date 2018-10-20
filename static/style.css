@@ -1,0 +1,34 @@
+.line {
+    font-size: 16px;
+    font-family: monospace;
+    background-color: #eeeeee;
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 4px;
+}
+
+.line:focus {
+    background-color: lightblue;
+}
+
+.output {
+    font-size: 16px;
+    font-family: monospace;
+}
+
+.output-invisible {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.output-visible {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+
+.boxen {
+    width: 75%;
+    margin: 0 auto;
+}

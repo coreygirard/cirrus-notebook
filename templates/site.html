@@ -1,47 +1,45 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?n={{random_n}}">
+</head>
+
 <body>
+  <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}?n={{random_n}}"></script>
 
-<input type="text" class="line" id="myInput1" oninput="parseLines()">
-<p id="demo1"></p>
+  <div class="boxen">
+    <input type="text" class="line" oninput="parseLines()">
+    <p class="output output-invisible"></p>
 
-<input type="text" class="line" id="myInput2" oninput="parseLines()">
-<p id="demo2"></p>
+    <input type="text" class="line" oninput="parseLines()">
+    <p class="output output-invisible"></p>
 
-<input type="text" class="line" id="myInput3" oninput="parseLines()">
-<p id="demo3"></p>
+    <input type="text" class="line" oninput="parseLines()">
+    <p class="output output-invisible"></p>
 
-<script>
-function parseLines() {
-    var allLines = new Array();
+    <input type="text" class="line" oninput="parseLines()">
+    <p class="output output-invisible"></p>
 
-    for (let line of document.getElementsByClassName("line")) {
-        allLines.push(line.value);
-    }
+    <input type="text" class="line" oninput="parseLines()">
+    <p class="output output-invisible"></p>
 
-    console.log(allLines);
-    allLines = JSON.stringify(allLines);
-    console.log(allLines);
-    allLines = encodeURIComponent(allLines);
-    console.log(allLines);
+    <input type="text" class="line" oninput="parseLines()">
+    <p class="output output-invisible"></p>
 
-    var cell0 = JSON.stringify(document.getElementById("myInput1").value);
-    var cell1 = JSON.stringify(document.getElementById("myInput2").value);
-    var cell2 = JSON.stringify(document.getElementById("myInput3").value);
+    <input type="text" class="line" oninput="parseLines()">
+    <p class="output output-invisible"></p>
 
-    var request = new XMLHttpRequest();
-    request.open('GET', 'http://127.0.0.1:5000/parse?cell0=' + encodeURIComponent(cell0) +
-                                                   '&cell1=' + encodeURIComponent(cell1) +
-                                                   '&cell2=' + encodeURIComponent(cell2), true);
-    request.onload = function () {
-        var data = JSON.parse(this.response);
-        document.getElementById("demo1").innerHTML = data[0];
-        document.getElementById("demo2").innerHTML = data[1];
-        document.getElementById("demo3").innerHTML = data[2];
-    }
-    request.send();
-}
-</script>
+    <input type="text" class="line" oninput="parseLines()">
+    <p class="output output-invisible"></p>
+
+    <input type="text" class="line" oninput="parseLines()">
+    <p class="output output-invisible"></p>
+
+    <input type="text" class="line" oninput="parseLines()">
+    <p class="output output-invisible"></p>
+  </div>
 
 </body>
+
 </html>
