@@ -11,6 +11,23 @@ function getLines() {
     return allLines;
 }
 
+function renderHTML(data) {
+    data = data.replace(/(\n)/g, '<br>');
+    data = data.replace(/ /g, '&nbsp;');
+    return data;
+}
+
+function setOutputVisibility() {
+    var outputs = document.getElementsByClassName("output");
+    for (i = 0; i < outputs.length; i++) {
+        if (outputs[i].innerHTML === "") {
+            outputs[i].className = "output output-invisible";
+        } else {
+            outputs[i].className = "output output-visible";
+        }
+    }
+}
+
 function parseLines() {
     var request = new XMLHttpRequest();
     request.open('GET', 'http://127.0.0.1:5000/parse?data=' + getLines(), true);
@@ -19,17 +36,9 @@ function parseLines() {
 
         var outputs = document.getElementsByClassName("output");
         for (i = 0; i < outputs.length; i++) {
-            if (data[i] === "") {
-                outputs[i].className = "output output-invisible";
-            } else {
-                outputs[i].className = "output output-visible";
-            }
-
-            var temp = data[i];
-            temp = temp.replace(/(\n)/g, '<br>');
-            temp = temp.replace(/ /g, '&nbsp;');
-            outputs[i].innerHTML = temp;
+            outputs[i].innerHTML = renderHTML(data[i]);
         }
+        setOutputVisibility();
     }
     request.send();
 }
@@ -71,6 +80,9 @@ function shiftFocusDown() {
     if (i === false) {
         return;
     }
+    if (i >= document.getElementsByClassName("line").length - 1) {
+        return;
+    }
     setBlur(i);
     setFocus(i + 1);
 }
@@ -80,31 +92,89 @@ function shiftFocusUp() {
     if (i === false) {
         return;
     }
+    if (i <= 0) {
+        return;
+    }
     setBlur(i);
     setFocus(i - 1);
 }
 
-function deleteFocused(n) {
+// https://www.abeautifulsite.net/adding-and-removing-elements-on-the-fly-using-javascript
+function deleteFocused() {
     var i = getFocusIndex();
     var elem = document.getElementsByClassName("line")[i]
     elem.parentNode.removeChild(elem);
+    var elem = document.getElementsByClassName("output")[i]
+    elem.parentNode.removeChild(elem);
+}
 
-    document.getElementsByClassName("line")[i + n].focus();
+function removeDelete() {
+    var i = getFocusIndex();
+    console.log(document.getElementsByClassName("line")[i].value);
+    console.log(document.getElementsByClassName("line")[i].selectionStart);
+    //deleteFocused();
+    //setFocus(getFocusIndex());
+}
+
+// https://stackoverflow.com/questions/2897155/get-cursor-position-in-characters-within-a-text-input-field
+function removeBackspace() {
+    var i = getFocusIndex();
+
+    // if we're at the first line
+    if (i === 0) {
+        return true; // Don't delete focused line
+    }
+
+    // if we're not at the beginning of the line
+    if (document.getElementsByClassName("line")[i].selectionStart !== 0) {
+        return true; // Don't delete focused line
+    }
+
+    // if the line isn't blank
+    if (document.getElementsByClassName("line")[i].value !== "") {
+        var cursorLoc = document.getElementsByClassName("line")[i - 1].value.length;
+        document.getElementsByClassName("line")[i - 1].value += document.getElementsByClassName("line")[i].value;
+        deleteFocused();
+        setFocus(i - 1);
+        document.getElementsByClassName("line")[i - 1].setSelectionRange(cursorLoc, cursorLoc);
+        return false; // Delete focused line
+    }
+
+
+    deleteFocused();
+    setFocus(i - 1);
+    return false; // Delete focused line
+}
+
+function insertAfter(el, referenceNode) {
+    referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+}
+
+function insertNew() {
+    var i = getFocusIndex();
+
+    // example
+    var newEl = document.createElement('div');
+    newEl.innerHTML = '<p>Hello World!</p>';
+    var ref = document.getElementsByClassName("line")[i];
+    insertAfter(newEl, ref);
 }
 
 // https://stackoverflow.com/questions/1402698/binding-arrow-keys-in-js-jquery
 document.onkeydown = function(e) {
-    switch (e.keyCode) {
-        case 38: // up
-            shiftFocusUp();
-            return false;
-
-        case 40: // down
-            shiftFocusDown();
-            return false;
-
-        case 8: // backspace
-            deleteFocused(-1);
-            return false;
+    if (e.keyCode == 38) { // up arrow
+        shiftFocusUp();
+        return false;
+    } else if (e.keyCode == 40) { // down arrow
+        shiftFocusDown();
+        return false;
+    } else if (e.keyCode == 8) { // backspace
+        return removeBackspace();
+    } else if (e.keyCode == 46) { // delete
+        removeDelete();
+        return false;
+    } else if (e.keyCode == 13) { // enter
+        insertNew();
+        return false;
     }
 };
