@@ -38,9 +38,34 @@
 
     <input type="text" class="line" oninput="parseLines()">
     <p class="output output-invisible"></p>
+
+    <input type="text" class="line" oninput="parseLines()">
+    <p class="output output-invisible"></p>
+
+    <input type="text" class="line" oninput="parseLines()">
+    <p class="output output-invisible"></p>
   </div>
 
   <script>
+    lines = ["# Project Euler 1",
+      "from pprint import pprint",
+      "",
+      "# try changing this to 1000",
+      "n = 10",
+      "",
+      "stream = list(range(n))",
+      "stream = [i for i in stream if not (i%3 and i%5)]",
+      "",
+      "pprint(stream, compact=True)",
+      "",
+      "print(sum(stream))"
+    ]
+
+    for (i = 0; i < lines.length; i++) {
+      document.getElementsByClassName("line")[i].value = lines[i];
+    }
+
+    parseLines();
     document.getElementsByClassName("line")[0].focus()
   </script>
 

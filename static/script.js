@@ -146,18 +146,27 @@ function removeBackspace() {
     return false; // Delete focused line
 }
 
+// https://plainjs.com/javascript/manipulation/insert-an-element-after-or-before-another-32/
 function insertAfter(el, referenceNode) {
     referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
 }
 
 function insertNew() {
     var i = getFocusIndex();
+    // Need to make sure we insert after the output, not the input
+    var ref = document.getElementsByClassName("output")[i];
 
-    // example
-    var newEl = document.createElement('div');
-    newEl.innerHTML = '<p>Hello World!</p>';
-    var ref = document.getElementsByClassName("line")[i];
-    insertAfter(newEl, ref);
+    //'<input type="text" class="line" oninput="parseLines()">'
+    var newLine = document.createElement('input');
+    newLine.type = "text";
+    newLine.className = "line";
+    newLine.addEventListener('input', parseLines, true);
+    insertAfter(newLine, ref);
+
+    //'<p class="output output-invisible"></p>'
+    var newOutput = document.createElement('p');
+    newOutput.className = "output output-invisible";
+    insertAfter(newOutput, newLine);
 }
 
 // https://stackoverflow.com/questions/1402698/binding-arrow-keys-in-js-jquery
@@ -175,6 +184,7 @@ document.onkeydown = function(e) {
         return false;
     } else if (e.keyCode == 13) { // enter
         insertNew();
+        shiftFocusDown();
         return false;
     }
 };
