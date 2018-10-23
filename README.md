@@ -2,6 +2,7 @@
 
 Experimental minimalist notebook-style IDE providing an instantaneous feedback loop for development
 
+![](demo.gif)
 
 ### Try it!
 
