@@ -15,20 +15,36 @@
 .output {
     font-size: 16px;
     font-family: monospace;
-}
-
-.output-invisible {
     margin-top: 0px;
     margin-bottom: 0px;
 }
 
+.output-invisible {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+}
+
 .output-visible {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
     margin-top: 8px;
     margin-bottom: 8px;
+    margin-left: 8px;
 }
 
 
 .boxen {
     width: 75%;
     margin: 0 auto;
+}
+
+.error {
+    color: red;
+    background-color: #ffdddd;
+
 }
