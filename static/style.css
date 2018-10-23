@@ -37,14 +37,58 @@
     margin-left: 8px;
 }
 
+.header {
+    height: 75px;
+}
+
+.cirrus-name {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 72px;
+    font-family: 'Herr Von Muellerhoff', cursive;
+    position: absolute;
+    top: -15px;
+    left: 40px;
+}
+
+.upload-box {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
 
 .boxen {
     width: 75%;
     margin: 0 auto;
 }
 
+.footer {
+    height: 100px;
+}
+
 .error {
     color: red;
     background-color: #ffdddd;
 
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 {
+     font-size: 18px;
+ }
+.material-icons.md-24 {
+    font-size: 24px;
+}
+.material-icons.md-36 {
+    font-size: 36px;
+}
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-upload:hover {
+    color: rgba(0, 0, 0, 0.54);
+}
+.material-icons.md-upload {
+    color: rgba(0, 0, 0, 0.26);
 }

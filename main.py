@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify, request
 import sys
 import io
 import random
+from pprint import pprint
 
 
 app = Flask(__name__)
@@ -43,9 +44,10 @@ def ev(lines):
     return o
 
 
-@app.route('/parse')
+
+@app.route('/parse', methods=['GET', 'POST'])
 def parse():
-    lines = eval(request.args.get('data'))
+    lines = request.json
 
     data = {"data": ev(lines)}
 

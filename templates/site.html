@@ -3,52 +3,31 @@
 
 <head>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?n={{random_n}}">
+
+  <script type="text/javascript" src="{{ url_for('static', filename='utils.js') }}?n={{random_n}}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='parse.js') }}?n={{random_n}}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}?n={{random_n}}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='setup.js') }}?n={{random_n}}"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff" rel="stylesheet">
 </head>
 
 <body>
-  <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}?n={{random_n}}"></script>
 
-  <div style="height:50px"></div>
-
+  <div class="header">
+    <span class="cirrus-name">cirrus</span>
+    <div class="upload-box">
+      <i class="material-icons md-36 md-upload" onclick="uploadFile()">cloud_upload</i>
+      <i class="material-icons md-36 md-upload" onclick="downloadFile()">cloud_download</i>
+    </div>
+  </div>
   <div class="boxen">
-    <input type="text" class="line" oninput="parseLines()">
-    <p class="output output-invisible"></p>
-
-    <input type="text" class="line" oninput="parseLines()">
-    <p class="output output-invisible"></p>
-
-    <input type="text" class="line" oninput="parseLines()">
-    <p class="output output-invisible"></p>
-
-    <input type="text" class="line" oninput="parseLines()">
-    <p class="output output-invisible"></p>
-
-    <input type="text" class="line" oninput="parseLines()">
-    <p class="output output-invisible"></p>
-
-    <input type="text" class="line" oninput="parseLines()">
-    <p class="output output-invisible"></p>
-
-    <input type="text" class="line" oninput="parseLines()">
-    <p class="output output-invisible"></p>
-
-    <input type="text" class="line" oninput="parseLines()">
-    <p class="output output-invisible"></p>
-
-    <input type="text" class="line" oninput="parseLines()">
-    <p class="output output-invisible"></p>
-
-    <input type="text" class="line" oninput="parseLines()">
-    <p class="output output-invisible"></p>
-
-    <input type="text" class="line" oninput="parseLines()">
-    <p class="output output-invisible"></p>
-
     <input type="text" class="line" oninput="parseLines()">
     <p class="output output-invisible"></p>
   </div>
 
-  <div style="height:100px"></div>
+  <div class="footer"></div>
 
   <script>
     setupDefault();
